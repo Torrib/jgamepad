@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="jgamepad:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/jgamepad_jar</output-path>
+    <root id="archive" name="jgamepad.jar">
+      <element id="module-output" name="jgamepad" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/jna-4.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/jna-platform-4.1.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

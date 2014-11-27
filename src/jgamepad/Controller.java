@@ -1,5 +1,10 @@
 package jgamepad;
 
+import jgamepad.enums.Analog;
+import jgamepad.enums.Button;
+import jgamepad.interfaces.ConnectionChangedEvent;
+import jgamepad.interfaces.ButtonListener;
+import jgamepad.interfaces.ControllerInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,24 +12,36 @@ import java.util.List;
 public class Controller implements Runnable{
 
     private int controller;
-    private int pullRate = 100;
+    private int pullDelay = 100;
     private int connected;
     private boolean run = false;
+    private int[] data = new int[22];
 
     private ControllerInterface controllerInput;
     private List<ButtonListener> buttonListeners = new ArrayList<>();
-    private int[] data = new int[22];
-    private ConnectionChangedEvent connectionChangedEvent;
+    private List<ConnectionChangedEvent> connectionChangedEvents = new ArrayList<>();
 
+    /**
+     * Creates an instance of the passed controller (0 - 3)
+     * @param controller - Integer between 0 and 3
+     */
     public Controller(int controller){
         init(controller);
     }
 
-    public Controller(int controller, int pullRate){
-        this.pullRate = pullRate;
+    /**
+     * Creates an instance of the passed controller (0 - 3)
+     * @param controller - Integer between 0 and 3
+     * @param pullDelay - How often controller information will be pulled (Default 100ms)
+     */
+    public Controller(int controller, int pullDelay){
+        this.pullDelay = pullDelay;
         init(controller);
     }
 
+    /**
+     * Starts the controller pulling
+     */
     public void run(){
         run = true;
         while(run){
@@ -32,7 +49,7 @@ public class Controller implements Runnable{
                 controllerInput.populateControllerData(controller, data);
                 checkConnection();
                 checkListeners();
-                Thread.sleep(pullRate);
+                Thread.sleep(pullDelay);
             }
             catch (InterruptedException e){
                 e.printStackTrace();
@@ -40,25 +57,44 @@ public class Controller implements Runnable{
         }
     }
 
+    /**
+     * Stops the controller pulling
+     */
     public void stop(){
         run = false;
     }
 
+    /**
+     * Adds a buttonListener to the controllers button listeners
+     * @param buttonListener - ButtonHoldListener or ButtonPressedListener
+     */
     public void addButtonListener(ButtonListener buttonListener){
         Logger.log("Added listener for: " + buttonListener.getButton());
         buttonListeners.add(buttonListener);
     }
 
+    /**
+     * Add a list of buttonListeners
+     * @param buttonListenerList - List of button listeners
+     */
     public void addButtonListener(List<ButtonListener> buttonListenerList){
         buttonListeners.addAll(buttonListenerList);
     }
 
+    /**
+     * Removes a buttonListener from the list of button listeners
+     * @param buttonListener - ButtonListener object
+     */
     public void removeButtonListener(ButtonListener buttonListener){
         Logger.log("Removed listener for: " + buttonListener.getButton());
         buttonListeners.remove(buttonListener);
     }
 
-    public void removeButtonListener(int button){
+    /**
+     * Removes all listeners for the Button
+     * @param button - Button object
+     */
+    public void removeButtonListener(Button button){
         Logger.log("Removed listeners for: " + button);
         for(int i = 0; i < buttonListeners.size(); i++){
             if(button == buttonListeners.get(i).getButton()){
@@ -68,35 +104,68 @@ public class Controller implements Runnable{
         }
     }
 
+    /**
+     * Removes all buttonListeners contained in the buttonListenerList
+     * @param buttonListenerList - List containing ButtonListener objects
+     */
     public void removeButtonListener(List<ButtonListener> buttonListenerList){
         buttonListeners.removeAll(buttonListenerList);
     }
 
-    public void clearListeners(){
+    /**
+     * Removes all ButtonListeners
+     */
+    public void clearButtonListeners(){
         Logger.log("Listeners cleared");
         buttonListeners.clear();
     }
 
+    /**
+     * Returns true if the controller is connected
+     */
     public boolean connected(){
         return connected == 1;
     }
 
-    public boolean getButtonValue(int button){
-        return data[button] == 1;
+    /**
+     * Returns true if the passed Button is pressed
+     * @param button - The button to check if it is pressed or not
+     * @return boolean
+     */
+    public boolean getButtonValue(Button button){
+        return data[button.value] == 1;
     }
 
-    public int getAnalogValue(int analog){
-        return data[analog];
+    /**
+     * Returns a value for the analog elements on the controller
+     * @param analog - The analog to get the value from
+     * @return int
+     */
+    public int getAnalogValue(Analog analog){
+        return data[analog.value];
     }
 
+    /**
+     * Vibrate the controller for 500 ms
+     */
     public void vibrate(){
         vibrate(20000, 20000, 500);
     }
 
+    /**
+     * Vibrate the controller
+     * @param duration - The duration of the vibration (ms)
+     */
     public void vibrate(int duration){
         vibrate(25000, 25000, duration);
     }
 
+    /**
+     * Vibrate the controller
+     * @param leftMotor - The strength of the vibration (0 - 30000)
+     * @param rightMotor - The strength of the vibration (0 - 30000)
+     * @param duration - The duration of the vibration (ms)
+     */
     public void vibrate(int leftMotor, int rightMotor, int duration){
         Logger.log("Controller " + controller + ": vibrating");
         (new Thread() {
@@ -111,24 +180,51 @@ public class Controller implements Runnable{
         }).start();
     }
 
-    public void turnOff(){
+    /**
+     * Turns off the controller
+     * <b>Note: </b> Only works for Xbox360 controllers
+     */
+    public void turnOff() {
         Logger.log("Controller " + controller + ": turning off");
         controllerInput.turnControllerOff(controller);
     }
 
-    public int getPullRate() {
-        return pullRate;
+    /**
+     * Set the pull delay(How often data is pulled from the controller)
+     * @param pullDelay - Delay in ms (default: 100)
+     */
+    public void setPullDelay(int pullDelay) {
+        this.pullDelay = pullDelay;
     }
 
-    public void setPullRate(int pullRate) {
-        this.pullRate = pullRate;
-    }
-
-    public void setConnectionChangedEvent(ConnectionChangedEvent connectionChangedEvent) {
+    /**
+     * Add an event that will trigger every time the controller connects or disconnects
+     * @param connectionChangedEvent - ConnectionChangedEvent
+     */
+    public void addConnectionChangedEvent(ConnectionChangedEvent connectionChangedEvent) {
         Logger.log("ConnectionChangedEvent set for controller: " + controller);
-        this.connectionChangedEvent = connectionChangedEvent;
+        connectionChangedEvents.add(connectionChangedEvent);
     }
 
+    /**
+     * Removes the ConnectionChangedEvent from the list
+     * @param connectionChangedEvent - ConnectionChangedEvent
+     */
+    public void removeConnectionChangedEvent(ConnectionChangedEvent connectionChangedEvent){
+        connectionChangedEvents.remove(connectionChangedEvent);
+    }
+
+    /**
+     * Removes all ConnectionChangedEvents
+     */
+    public void clearConnectionChangedEvents(){
+        connectionChangedEvents.clear();
+    }
+
+    /**
+     * Returns the controller number (0 - 3)
+     * @return int
+     */
     public int getControllerNumber(){
         return controller;
     }
@@ -142,7 +238,7 @@ public class Controller implements Runnable{
     private void checkListeners(){
         for(int i = 0; i < buttonListeners.size(); i++){
             ButtonListener buttonListener = buttonListeners.get(i);
-            if (data[buttonListener.getButton()] != buttonListener.getState()) {
+            if (data[buttonListener.getButton().value] != buttonListener.getState()) {
                 buttonListener.swapState();
                 buttonListener.run();
             }
@@ -158,11 +254,9 @@ public class Controller implements Runnable{
             else
                 Logger.log("Controller " + controller + ": Disconnected");
 
-            if(connectionChangedEvent != null) {
-                connectionChangedEvent.run(connected == 1);
+            for(int i = 0; i < connectionChangedEvents.size(); i++){
+                connectionChangedEvents.get(i).run(connected == 1);
             }
         }
     }
-
-
 }

@@ -3,8 +3,9 @@ package jgamepad;
 
 import com.sun.jna.Native;
 import com.sun.jna.Platform;
+import jgamepad.interfaces.ControllerInterface;
 
-public class ControllerInput {
+class ControllerInput {
     public static ControllerInterface ci;
 
     static {

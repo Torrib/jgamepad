@@ -1,0 +1,3 @@
+26/11/2014 20:24:35 - Initiating controller listener for controller nr: 0
+26/11/2014 20:24:36 - Controller64.dll loaded
+26/11/2014 20:24:36 - Loading controller interface

@@ -1,6 +1,6 @@
 package examples;
 
-import jgamepad.Button;
+import jgamepad.enums.Button;
 import jgamepad.Controller;
 
 
@@ -18,10 +18,10 @@ public class SimpleButtonLoop {
 
         while(keepRunning) {
             try {
-                if(controller.getButtonValue(Button.a)){
+                if(controller.getButtonValue(Button.A)){
                     System.out.println("A pressed!");
                 }
-                if(controller.getButtonValue(Button.guide)){
+                if(controller.getButtonValue(Button.GUIDE)){
                     System.out.println("Exiting");
                     System.exit(0);
                 }

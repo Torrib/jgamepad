@@ -1,7 +1,7 @@
 package examples;
 
-import jgamepad.Analog;
-import jgamepad.Button;
+import jgamepad.enums.Analog;
+import jgamepad.enums.Button;
 import jgamepad.Controller;
 
 public class SimpleAnalogLoop {
@@ -19,7 +19,7 @@ public class SimpleAnalogLoop {
                 System.out.println("Right stick X: " + controller.getAnalogValue(Analog.rightStickX));
                 System.out.println("Right stick Y: " + controller.getAnalogValue(Analog.rightStickY));
 
-                if(controller.getButtonValue(Button.guide)){
+                if(controller.getButtonValue(Button.GUIDE)){
                     System.out.println("Exiting");
                     System.exit(0);
                 }

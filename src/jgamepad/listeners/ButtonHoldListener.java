@@ -12,7 +12,7 @@ import java.util.TimerTask;
 public class ButtonHoldListener implements ButtonListener {
 
     private Button button;
-    private Runnable holdEvent;
+    private Runnable runnable;
     private int state = 0;
     private int delay;
     private Timer timer;
@@ -21,11 +21,11 @@ public class ButtonHoldListener implements ButtonListener {
      * Creates a listener object that perform an action when a button has been held for a set duration.
      * @param button - The button to trigger on.
      * @param delay - The duration the button have to be pressed (ms).
-     * @param holdEvent - The event to trigger.
+     * @param runnable - The event to trigger.
      */
-    public ButtonHoldListener( Button button, int delay, Runnable holdEvent){
+    public ButtonHoldListener( Button button, int delay, Runnable runnable){
         this.button = button;
-        this.holdEvent = holdEvent;
+        this.runnable = runnable;
         this.delay = delay;
     }
 
@@ -47,7 +47,7 @@ public class ButtonHoldListener implements ButtonListener {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    (new Thread(holdEvent)).start();
+                    (new Thread(runnable)).start();
                 }
             }, delay);
         }

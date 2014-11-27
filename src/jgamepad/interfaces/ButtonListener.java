@@ -2,7 +2,7 @@ package jgamepad.interfaces;
 
 import jgamepad.enums.Button;
 
-public interface ButtonListener {
+public abstract interface ButtonListener {
 
     public void run();
     public void swapState();

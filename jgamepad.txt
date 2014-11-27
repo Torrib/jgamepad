@@ -1,3 +1,15 @@
-26/11/2014 20:24:35 - Initiating controller listener for controller nr: 0
-26/11/2014 20:24:36 - Controller64.dll loaded
-26/11/2014 20:24:36 - Loading controller interface
+27/11/2014 04:35:44 - Initiating controller listener for controller nr: 0
+27/11/2014 04:35:44 - Controller64.dll loaded
+27/11/2014 04:35:44 - Loading controller interface
+27/11/2014 04:35:44 - Controller 0: Connected
+27/11/2014 04:35:44 - Added listener for: A
+27/11/2014 04:35:44 - Added listener for: START
+27/11/2014 04:35:44 - Added listener for: GUIDE
+27/11/2014 04:36:13 - Initiating controller listener for controller nr: 0
+27/11/2014 04:36:14 - Controller64.dll loaded
+27/11/2014 04:36:14 - Loading controller interface
+27/11/2014 04:36:14 - Controller 0: Connected
+27/11/2014 04:37:09 - Initiating controller listener for controller nr: 0
+27/11/2014 04:37:09 - Controller64.dll loaded
+27/11/2014 04:37:09 - Loading controller interface
+27/11/2014 04:37:09 - Controller 0: Connected

@@ -9,11 +9,17 @@ import jgamepad.interfaces.ControllerInterface;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The main class representing a controller.
+ * One controller class should be created for every physical controller used
+ */
 public class Controller implements Runnable{
+
+    public static String dllPath = "";
 
     private int controller;
     private int pullDelay = 100;
-    private int connected;
+    private boolean connected = false;
     private boolean run = false;
     private int[] data = new int[22];
 
@@ -121,10 +127,11 @@ public class Controller implements Runnable{
     }
 
     /**
-     * Returns true if the controller is connected
+     * Checks if the controller is connected
+     * @return - Returns true if the controller is connected
      */
     public boolean connected(){
-        return connected == 1;
+        return connected;
     }
 
     /**
@@ -133,6 +140,9 @@ public class Controller implements Runnable{
      * @return boolean
      */
     public boolean getButtonValue(Button button){
+        if(button == null){
+            throw new NullPointerException("Button cannot be null");
+        }
         return data[button.value] == 1;
     }
 
@@ -142,6 +152,9 @@ public class Controller implements Runnable{
      * @return int
      */
     public int getAnalogValue(Analog analog){
+        if(analog == null){
+            throw new NullPointerException("Analog cannot be null");
+        }
         return data[analog.value];
     }
 
@@ -229,14 +242,18 @@ public class Controller implements Runnable{
         return controller;
     }
 
+
     private void init(int controller){
-        Logger.log("Initiating controller listener for controller nr: " + controller);
         this.controller = controller;
-        controllerInput = ControllerInput.ci;
+        Logger.log("Initiating controller listener for controller nr: " + controller);
+        ControllerInput.path = dllPath;
+        controllerInput = ControllerInput.getInterface();
+
+        (new Thread(this)).start();
     }
 
     private void checkListeners(){
-        for(int i = 0; i < buttonListeners.size(); i++){
+        for (int i = 0; i < buttonListeners.size(); i++) {
             ButtonListener buttonListener = buttonListeners.get(i);
             if (data[buttonListener.getButton().value] != buttonListener.getState()) {
                 buttonListener.swapState();
@@ -246,16 +263,17 @@ public class Controller implements Runnable{
     }
 
     private void checkConnection(){
-        if(data[21] != connected){
-            connected = data[21];
+        //Checks if the connection status have changed
+        if((data[21] == 1) != connected){
+            connected = (data[21] == 1);
 
-            if(connected == 1)
+            if(connected)
                 Logger.log("Controller " + controller + ": Connected");
             else
                 Logger.log("Controller " + controller + ": Disconnected");
 
             for(int i = 0; i < connectionChangedEvents.size(); i++){
-                connectionChangedEvents.get(i).run(connected == 1);
+                connectionChangedEvents.get(i).run(connected);
             }
         }
     }

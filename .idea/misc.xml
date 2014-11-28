@@ -5,7 +5,7 @@
   </component>
   <component name="IdProvider" IDEtalkID="2B77A387B7BEC9FB4FED2441EF8BAD5B" />
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" value="C:/javadoc" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../jgamepad-javadoc" />
     <option name="OPTION_SCOPE" value="protected" />
     <option name="OPTION_HIERARCHY" value="true" />
     <option name="OPTION_NAVIGATOR" value="true" />

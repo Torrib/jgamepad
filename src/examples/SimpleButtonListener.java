@@ -5,11 +5,10 @@ import jgamepad.enums.Button;
 import jgamepad.listeners.ButtonHoldListener;
 import jgamepad.listeners.ButtonPressedListener;
 
-public class SimpleButtonListener {
+class SimpleButtonListener {
 
     public static void main(String[] args) {
         Controller controller = new Controller(0);
-        (new Thread(controller)).start();
 
         //Prints when A is pressed and released
         controller.addButtonListener(new ButtonPressedListener(Button.A, pressed -> {
@@ -28,6 +27,7 @@ public class SimpleButtonListener {
         //Exits when GUIDE is pressed
         controller.addButtonListener(new ButtonPressedListener(Button.GUIDE, pressed -> {
             if(pressed){
+                controller.stop();
                 System.exit(0);
             }
         }));

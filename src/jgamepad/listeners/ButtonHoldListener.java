@@ -24,6 +24,14 @@ public class ButtonHoldListener implements ButtonListener {
      * @param runnable - The event to trigger.
      */
     public ButtonHoldListener( Button button, int delay, Runnable runnable){
+
+        if(button == null){
+            throw new NullPointerException("Button object cannot be null");
+        }
+        if(runnable == null){
+            throw new NullPointerException("Runnable object cannot be null");
+        }
+
         this.button = button;
         this.runnable = runnable;
         this.delay = delay;

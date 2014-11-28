@@ -9,15 +9,14 @@ import java.awt.AWTException;
 import java.awt.Point;
 import java.awt.MouseInfo;
 
-public class MouseSimulator {
+class MouseSimulator {
 
     private static final int IGNORE_ZONE = 5000;
 
     public static void main(String[] args){
         Controller controller = new Controller(0);
-        (new Thread(controller)).start();
 
-        int speed = 900;
+        int speedFactor = 1200;
         int x;
         int y;
         boolean keepRunning = true;
@@ -31,7 +30,6 @@ public class MouseSimulator {
             System.exit(1);
         }
 
-
         while(keepRunning) {
 
             try {
@@ -39,11 +37,11 @@ public class MouseSimulator {
                 y = controller.getAnalogValue(Analog.leftStickY);
 
                 if(x > IGNORE_ZONE || x < -IGNORE_ZONE)
-                    x /= speed;
+                    x /= speedFactor;
                 else
                     x = 0;
                 if(y > IGNORE_ZONE || y < -IGNORE_ZONE)
-                    y /= speed;
+                    y /= speedFactor;
                 else
                     y = 0;
 
@@ -62,5 +60,7 @@ public class MouseSimulator {
                 e.printStackTrace();
             }
         }
+        controller.stop();
+        System.exit(0);
     }
 }

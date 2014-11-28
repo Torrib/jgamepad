@@ -8,11 +8,10 @@ import jgamepad.Controller;
  * Simple loop that waits for A to be pressed and prints it out
  * Exits when the GUIDE button is pressed
  */
-public class SimpleButtonLoop {
+class SimpleButtonLoop {
 
     public static void main(String[] args){
         Controller controller = new Controller(0);
-        (new Thread(controller)).start();
 
         boolean keepRunning = true;
 
@@ -23,6 +22,7 @@ public class SimpleButtonLoop {
                 }
                 if(controller.getButtonValue(Button.GUIDE)){
                     System.out.println("Exiting");
+                    controller.stop();
                     System.exit(0);
                 }
                 Thread.sleep(500);

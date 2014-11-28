@@ -4,10 +4,10 @@ import jgamepad.enums.Analog;
 import jgamepad.enums.Button;
 import jgamepad.Controller;
 
-public class SimpleAnalogLoop {
+class SimpleAnalogLoop {
     public static void main(String[] args) {
         Controller controller = new Controller(0);
-        (new Thread(controller)).start();
+//        (new Thread(controller)).start();
 
         boolean keepRunning = true;
 

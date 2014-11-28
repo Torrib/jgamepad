@@ -19,6 +19,14 @@ public class ButtonPressedListener implements ButtonListener {
      * @param pressEvent - The action to run
      */
     public ButtonPressedListener(Button button, ButtonPressedEvent pressEvent){
+
+        if(button == null){
+            throw new NullPointerException("Button object cannot be null");
+        }
+        if(pressEvent == null){
+            throw new NullPointerException("ButtonPressedEvent object cannot be null");
+        }
+
         this.button = button;
         this.pressEvent = pressEvent;
     }

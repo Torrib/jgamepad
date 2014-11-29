@@ -16,6 +16,7 @@ import java.util.List;
 public class Controller implements Runnable{
 
     public static String dllPath = "";
+    public static boolean debug = false;
 
     private int controller;
     private int pullDelay = 100;

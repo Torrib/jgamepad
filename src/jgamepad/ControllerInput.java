@@ -21,7 +21,7 @@ class ControllerInput {
                 path += "\\";
 
             if (Platform.is64Bit()) {
-                ci = (ControllerInterface) Native.loadLibrary(path + "Controller.dll", ControllerInterface.class); //TODO 64
+                ci = (ControllerInterface) Native.loadLibrary(path + "Controller64.dll", ControllerInterface.class);
                 Logger.log("Controller64.dll loaded");
             } else {
                 ci = (ControllerInterface) Native.loadLibrary(path + "Controller.dll", ControllerInterface.class);
@@ -31,15 +31,15 @@ class ControllerInput {
 
             boolean loaded = ci.initController();
             if (!loaded) {
-                Logger.log("Unable to load controller.dll");
+                Logger.log("Unable to load controller.dll", true);
                 System.exit(1);
             }
         } catch (UnsatisfiedLinkError ule) {
-            Logger.log("Could not find Controller.dll");
+            Logger.log("Could not find Controller.dll", true);
             System.exit(1);
         } catch (Exception e) {
-            Logger.log(e.toString());
-            Logger.log(e.getMessage());
+            Logger.log(e.toString(), true);
+            Logger.log(e.getMessage(), true);
         }
         return ci;
     }

@@ -11,21 +11,27 @@ import jgamepad.Controller;
 class SimpleButtonLoop {
 
     public static void main(String[] args){
+
+        //Sets the path to controller.dll directory
+        Controller.dllPath = System.getProperty("user.dir") + "\\release";
+
         Controller controller = new Controller(0);
 
         boolean keepRunning = true;
 
         while(keepRunning) {
             try {
+                //Pulls the information from the button A and prints if it is down
                 if(controller.getButtonValue(Button.A)){
-                    System.out.println("A pressed!");
+                    System.out.println("A down!");
                 }
+
                 if(controller.getButtonValue(Button.GUIDE)){
                     System.out.println("Exiting");
                     controller.stop();
                     System.exit(0);
                 }
-                Thread.sleep(500);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

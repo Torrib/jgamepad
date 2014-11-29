@@ -13,14 +13,24 @@ class Logger {
     private static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     public static void log(String message){
+        if(Controller.debug) {
+            pLog(message);
+        }
+    }
+
+    public static void log(String message, boolean force){
+        if(force)
+            pLog(message);
+    }
+
+    private static void pLog(String message){
         Date date = new Date();
         try {
             PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("jgamepad.txt", true)));
             out.println(dateFormat.format(date) + " - " + message);
             out.close();
             System.out.println(message);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

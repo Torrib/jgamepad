@@ -4,13 +4,18 @@ import jgamepad.enums.Analog;
 import jgamepad.enums.Button;
 import jgamepad.Controller;
 
+/**
+ * Simple class that prints out the analog sticks movement
+ */
 class SimpleAnalogLoop {
     public static void main(String[] args) {
+
+        //Sets the path to controller.dll directory
+        Controller.dllPath = System.getProperty("user.dir") + "\\release";
+
         Controller controller = new Controller(0);
-//        (new Thread(controller)).start();
 
         boolean keepRunning = true;
-
 
         while(keepRunning) {
             try {
@@ -21,6 +26,7 @@ class SimpleAnalogLoop {
 
                 if(controller.getButtonValue(Button.GUIDE)){
                     System.out.println("Exiting");
+                    controller.stop();
                     System.exit(0);
                 }
                 Thread.sleep(500);

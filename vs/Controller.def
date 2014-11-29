@@ -1,0 +1,10 @@
+LIBRARY
+
+EXPORTS
+initController
+turnControllerOff
+close
+startVibration
+stopVibration
+getBatteryState
+populateControllerData

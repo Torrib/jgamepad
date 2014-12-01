@@ -7,11 +7,9 @@ import jgamepad.interfaces.ButtonPressedEvent;
 /**
  * Listener that will trigger on button presses
  */
-public class ButtonPressedListener implements ButtonListener {
+public class ButtonPressedListener extends ButtonListener {
 
-    private Button button;
     private ButtonPressedEvent pressEvent;
-    private int state = 0;
 
     /**
      * Creates a listener that will trigger when the set button is pressed
@@ -19,31 +17,15 @@ public class ButtonPressedListener implements ButtonListener {
      * @param pressEvent - The action to run
      */
     public ButtonPressedListener(Button button, ButtonPressedEvent pressEvent){
-
-        if(button == null){
-            throw new NullPointerException("Button object cannot be null");
-        }
+        super(button);
         if(pressEvent == null){
             throw new NullPointerException("ButtonPressedEvent object cannot be null");
         }
 
-        this.button = button;
         this.pressEvent = pressEvent;
     }
 
-    public Button getButton() {
-        return button;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void run(){
-        pressEvent.run(state == 1);
-    }
-
-    public void swapState(){
-        state = state == 0 ? 1 : 0;
+    public void run(boolean pressed){
+        pressEvent.run(pressed);
     }
 }

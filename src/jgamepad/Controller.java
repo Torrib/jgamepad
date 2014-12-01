@@ -5,6 +5,7 @@ import jgamepad.enums.Button;
 import jgamepad.interfaces.ConnectionChangedEvent;
 import jgamepad.interfaces.ButtonListener;
 import jgamepad.interfaces.ControllerInterface;
+import jgamepad.interfaces.MultipleButtonListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Controller implements Runnable{
 
     private ControllerInterface controllerInput;
     private List<ButtonListener> buttonListeners = new ArrayList<>();
+    private List<MultipleButtonListener> multipleButtonsListeners = new ArrayList<>();
     private List<ConnectionChangedEvent> connectionChangedEvents = new ArrayList<>();
 
     /**
@@ -117,6 +119,10 @@ public class Controller implements Runnable{
      */
     public void removeButtonListener(List<ButtonListener> buttonListenerList){
         buttonListeners.removeAll(buttonListenerList);
+    }
+
+    public void addButtonListener(MultipleButtonListener multipleButtonListener){
+        multipleButtonsListeners.add(multipleButtonListener);
     }
 
     /**
@@ -258,9 +264,14 @@ public class Controller implements Runnable{
             ButtonListener buttonListener = buttonListeners.get(i);
             if (data[buttonListener.getButton().value] != buttonListener.getState()) {
                 buttonListener.swapState();
-                buttonListener.run();
+                buttonListener.run(data[buttonListener.getButton().value] == 1);
             }
         }
+
+        for(int i = 0; i < multipleButtonsListeners.size(); i++){
+            multipleButtonsListeners.get(i).checkState(data);
+        }
+
     }
 
     private void checkConnection(){

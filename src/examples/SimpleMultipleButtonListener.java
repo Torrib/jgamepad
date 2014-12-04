@@ -19,7 +19,7 @@ public class SimpleMultipleButtonListener {
         Button[] buttons1 = {Button.L1, Button.R1};
 
         //When L1 and R1 are pressed at the same time the controller vibrates
-        controller.addButtonListener(new MultipleButtonPressedListener(buttons1, pressed -> {
+        controller.addMultipleButtonListener(new MultipleButtonPressedListener(buttons1, pressed -> {
                 if(pressed) {
                     System.out.println("Pressed!");
                     controller.vibrate();
@@ -29,7 +29,7 @@ public class SimpleMultipleButtonListener {
         Button[] buttons2 = {Button.START, Button.BACK};
 
         // Prints out when the start and back buttons have been held for 1 second
-        controller.addButtonListener(new MultipleButtonHoldListener(buttons2, 1000,
+        controller.addMultipleButtonListener(new MultipleButtonHoldListener(buttons2, 1000,
                 () -> System.out.println("Back and start held for 1 second")));
 
     }

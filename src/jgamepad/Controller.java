@@ -121,8 +121,36 @@ public class Controller implements Runnable{
         buttonListeners.removeAll(buttonListenerList);
     }
 
-    public void addButtonListener(MultipleButtonListener multipleButtonListener){
+    /**
+     * Adds a multipleButtonListener to the list of listeners
+     * @param multipleButtonListener - MultipleButtonPressedListener or MultipleButtonHoldListener
+     */
+    public void addMultipleButtonListener(MultipleButtonListener multipleButtonListener){
         multipleButtonsListeners.add(multipleButtonListener);
+    }
+
+    /**
+     * Add a list of multipleButtonlisteners to the list of listeners
+     * @param multipleButtonListenerList - List of MultipleButtonListeners
+     */
+    public void addMultipleButtonListener(List<MultipleButtonListener> multipleButtonListenerList){
+        multipleButtonsListeners.addAll(multipleButtonListenerList);
+    }
+
+    /**
+     * Remove MultipleButtonListener from the list of listeners
+     * @param multipleButtonListener - Listener that will be removed from the list of listeners
+     */
+    public void removeMultipleButtonListener(MultipleButtonListener multipleButtonListener){
+        multipleButtonsListeners.remove(multipleButtonListener);
+    }
+
+    /**
+     * Removes all elements in the list from the list of listeners
+     * @param multipleButtonListenerList - List of listeners to remove.
+     */
+    public void removeMultipleButtonListener(List<MultipleButtonListener> multipleButtonListenerList){
+        multipleButtonsListeners.removeAll(multipleButtonListenerList);
     }
 
     /**

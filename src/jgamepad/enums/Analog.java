@@ -5,12 +5,12 @@ package jgamepad.enums;
  */
 public enum Analog {
 
-    L2 (15),
-    R2 (16),
-    leftStickX (17),
-    leftStickY (18),
+    leftStickY (15),
+    leftStickX (16),
+    L2 (17),
+    rightStickY (18),
     rightStickX (19),
-    rightStickY (20);
+    R2 (20);
 
     public int value;
 

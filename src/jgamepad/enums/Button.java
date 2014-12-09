@@ -16,10 +16,10 @@ public enum Button {
     L3 (8),
     R3 (9),
     GUIDE (10),
-    DOWN (11),
-    UP (12),
-    LEFT (13),
-    RIGHT (14);
+    LEFT (11),
+    RIGHT (12),
+    UP (13),
+    DOWN (14);
 
     public int value;
 

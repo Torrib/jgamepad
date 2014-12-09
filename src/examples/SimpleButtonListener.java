@@ -13,7 +13,7 @@ class SimpleButtonListener {
     public static void main(String[] args) {
 
         //Sets the path to controller.dll directory
-        Controller.dllPath = System.getProperty("user.dir") + "\\release";
+        //Controller.dllPath = System.getProperty("user.dir") + "\\release";
 
         Controller controller = new Controller(0);
 

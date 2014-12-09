@@ -2,6 +2,7 @@ package examples;
 
 import jgamepad.Controller;
 import jgamepad.enums.Button;
+import jgamepad.interfaces.ButtonListener;
 import jgamepad.listeners.MultipleButtonHoldListener;
 import jgamepad.listeners.MultipleButtonPressedListener;
 
@@ -9,7 +10,7 @@ import jgamepad.listeners.MultipleButtonPressedListener;
  * Shows example usage of the MultipleButtonPressedListener
  * and the MultipleButtonHoldListener classes
  */
-public class SimpleMultipleButtonListener {
+public class SimpleMultipleButtonListener{
 
     public static void main(String[] args){
         Controller.dllPath = System.getProperty("user.dir") + "\\release";

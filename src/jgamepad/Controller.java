@@ -16,6 +16,10 @@ import java.util.List;
  */
 public class Controller implements Runnable{
 
+    private final static int LEFT_STICK_DEADZONE = 7849;
+    private final static int RIGHT_STICK_DEADZONE = 8689;
+    private final static int TRIGGER_DEADZONE = 30;
+
     public static String dllPath = "";
     public static boolean debug = false;
 
@@ -184,13 +188,29 @@ public class Controller implements Runnable{
     /**
      * Returns a value for the analog elements on the controller
      * @param analog - The analog to get the value from
-     * @return int
+     * @return int - The value of the analog input
      */
     public int getAnalogValue(Analog analog){
         if(analog == null){
             throw new NullPointerException("Analog cannot be null");
         }
-        return data[analog.value];
+        return handleDeadzone(analog);
+    }
+
+    /**
+     * Returns a value for the analog elements on the controller
+     * @param analog - The analog to get the value from
+     * @param handleDeadzone - Handles deadZone if true
+     * @return int - The value of the analog input
+     */
+    public int getAnalogValue(Analog analog, boolean handleDeadzone){
+        if(analog == null){
+            throw new NullPointerException("Analog cannot be null");
+        }
+        if(handleDeadzone)
+            return handleDeadzone(analog);
+        else
+            return data[analog.value];
     }
 
     /**
@@ -316,5 +336,32 @@ public class Controller implements Runnable{
                 connectionChangedEvents.get(i).run(connected);
             }
         }
+    }
+
+    private int handleDeadzone(Analog analog){
+        int value = data[analog.value];
+        if(analog == Analog.L2 || analog == Analog.R2){
+            if(value > TRIGGER_DEADZONE)
+                return value - TRIGGER_DEADZONE;
+            else
+                return 0;
+        }
+        else if(analog == Analog.leftStickX || analog == Analog.leftStickY){
+            if(value > LEFT_STICK_DEADZONE)
+                return value - LEFT_STICK_DEADZONE;
+            else if(value < -LEFT_STICK_DEADZONE)
+                return  value + LEFT_STICK_DEADZONE;
+            else
+                return 0;
+        }
+        else if(analog == Analog.rightStickX || analog == Analog.rightStickY){
+            if(value > RIGHT_STICK_DEADZONE)
+                return value - RIGHT_STICK_DEADZONE;
+            else if(value < -RIGHT_STICK_DEADZONE)
+                return  value + RIGHT_STICK_DEADZONE;
+            else
+                return 0;
+        }
+        return value;
     }
 }

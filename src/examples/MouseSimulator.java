@@ -14,9 +14,7 @@ import java.awt.MouseInfo;
  */
 class MouseSimulator {
 
-    //Analog information might not be zero when the sticks are not moved.
     //This creates a buffer to filter out those values
-    private static final int IGNORE_ZONE = 5000;
 
     public static void main(String[] args){
 
@@ -35,6 +33,7 @@ class MouseSimulator {
         try {
             robot = new Robot();
         } catch (AWTException e) {
+            System.out.println("Unable to load Robot - Exiting");
             e.printStackTrace();
             System.exit(1);
         }
@@ -42,18 +41,12 @@ class MouseSimulator {
         while(keepRunning) {
             try {
                 //Pulls the left analog stick's X and Y values
-                x = controller.getAnalogValue(Analog.leftStickX);
-                y = controller.getAnalogValue(Analog.leftStickY);
+                x = controller.getAnalogValue(Analog.leftStickX, true);
+                y = controller.getAnalogValue(Analog.leftStickY, true);
 
                 //Calculate the amount of movement for both X and Y
-                if(x > IGNORE_ZONE || x < -IGNORE_ZONE)
-                    x /= speedFactor;
-                else
-                    x = 0;
-                if(y > IGNORE_ZONE || y < -IGNORE_ZONE)
-                    y /= speedFactor;
-                else
-                    y = 0;
+                x /= speedFactor;
+                y /= speedFactor;
 
                 //Move the mouse
                 if(y != 0 || x != 0){

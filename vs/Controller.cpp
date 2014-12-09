@@ -89,18 +89,18 @@ namespace Controller
 		data[8] = bs.l3;
 		data[9] = bs.r3;
 		data[10] = bs.guideButton;
-		data[11] = bs.down;
-		data[12] = bs.up;
-		data[13] = bs.left;
-		data[14] = bs.right;
+		data[11] = bs.left;
+		data[12] = bs.right;
+		data[13] = bs.up;
+		data[14] = bs.down;
 
 		//analog
-		data[15] = bs.l2;
-		data[16] = bs.r2;
-		data[17] = bs.leftStickX;
-		data[18] = bs.leftStickY;
+		data[15] = bs.leftStickY;
+		data[16] = bs.leftStickX;
+		data[17] = bs.l2;
+		data[18] = bs.rightStickY;
 		data[19] = bs.rightStickX;
-		data[20] = bs.rightStickY;
+		data[20] = bs.r2;
 
 		
 		//result returns 1167 when disconected and 0 when connected

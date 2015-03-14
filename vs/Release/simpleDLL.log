@@ -1,0 +1,16 @@
+﻿Build started 09.01.2015 18:29:35.
+     1>Project "C:\Users\thb\Documents\GitHub\jgamepad\vs\simpleDLL.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D SIMPLEDLL_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Controller.cpp
+         Controller.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\thb\Documents\GitHub\jgamepad\vs\Release\Controller.dll" /INCREMENTAL:NO /NOLOGO libs\86\XInput.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /DEF:"Controller.def" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\thb\Documents\GitHub\jgamepad\vs\Release\Controller.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\thb\Documents\GitHub\jgamepad\vs\Release\Controller.lib" /MACHINE:X86 /SAFESEH /DLL Release\Controller.obj
+            Creating library C:\Users\thb\Documents\GitHub\jgamepad\vs\Release\Controller.lib and object C:\Users\thb\Documents\GitHub\jgamepad\vs\Release\Controller.exp
+         Generating code
+         Finished generating code
+         simpleDLL.vcxproj -> C:\Users\thb\Documents\GitHub\jgamepad\vs\Release\Controller.dll
+     1>Done Building Project "C:\Users\thb\Documents\GitHub\jgamepad\vs\simpleDLL.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.18

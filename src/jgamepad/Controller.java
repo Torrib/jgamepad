@@ -2,10 +2,7 @@ package jgamepad;
 
 import jgamepad.enums.Analog;
 import jgamepad.enums.Button;
-import jgamepad.interfaces.ConnectionChangedEvent;
-import jgamepad.interfaces.ButtonListener;
-import jgamepad.interfaces.ControllerInterface;
-import jgamepad.interfaces.MultipleButtonListener;
+import jgamepad.interfaces.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -319,7 +316,6 @@ public class Controller implements Runnable{
         for(int i = 0; i < multipleButtonsListeners.size(); i++){
             multipleButtonsListeners.get(i).checkState(data);
         }
-
     }
 
     private void checkConnection(){

@@ -2,7 +2,6 @@ package examples;
 
 import jgamepad.Controller;
 import jgamepad.enums.Button;
-import jgamepad.interfaces.ButtonListener;
 import jgamepad.listeners.MultipleButtonHoldListener;
 import jgamepad.listeners.MultipleButtonPressedListener;
 
